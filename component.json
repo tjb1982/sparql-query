@@ -7,7 +7,7 @@
   "dependencies": {},
   "development": {},
   "license": "MIT",
-  "main": "query.js",
+  "main": "index.js",
   "scripts": [
     "query.js",
     "concrete/construct.js"
