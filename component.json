@@ -9,7 +9,8 @@
   "license": "MIT",
   "main": "index.js",
   "scripts": [
-    "query.js",
+    "index.js",
+    "abstract/query.js",
     "concrete/construct.js"
   ]
 }
