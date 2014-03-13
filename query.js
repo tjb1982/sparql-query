@@ -26,6 +26,17 @@ Query.prototype.flattenInput = function(input) {
   : input;
 };
 
+Query.prototype.where = function(input) {
+  var self = this;
+  this._whereClauses = this._whereClauses || [];
+
+  this.flattenInput(input).forEach(function(string) {
+    self._whereClauses.push(string);
+  });
+
+  return this;
+};
+
 Query.prototype.out = Query.prototype.serialize = function() {};
 
 module.exports = Query;

@@ -19,15 +19,6 @@ ConstructQuery.prototype.construct = function(input) {
   return this;
 };
 
-ConstructQuery.prototype.where = function(input) {
-  var self = this;
-  this.flattenInput(input).forEach(function(string) {
-    self._whereClauses.push(string);
-  });
-
-  return this;
-};
-
 ConstructQuery.prototype.serialize = ConstructQuery.prototype.out = function() {
   return 'construct { ' + this._constructTriples.join(' . ') + ' } where { ' +
     this._whereClauses.join(' . ') + ' }';
