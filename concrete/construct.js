@@ -1,4 +1,4 @@
-var Query = require('../query');
+var Query = require('../abstract/query');
 
 var ConstructQuery = function(options) {
   options = options || {};
