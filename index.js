@@ -1,2 +1,2 @@
-exports.Query = require('abstract/query');
-exports.ConstructQuery = require('concrete/construct');
+exports.Query = require('./abstract/query');
+exports.ConstructQuery = require('./concrete/construct');
