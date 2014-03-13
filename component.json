@@ -1,0 +1,14 @@
+{
+  "name": "sparql-query",
+  "repo": "tjb1982/sparql-query",
+  "description": "builds a sparql query string",
+  "version": "0.0.1",
+  "keywords": [],
+  "dependencies": {},
+  "development": {},
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ]
+}
