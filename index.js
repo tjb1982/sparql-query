@@ -30,8 +30,10 @@ Query.prototype.out = Query.prototype.serialize = function() {};
 
 var ConstructQuery = function(options) {
   options = options || {};
-  this._constructTriples = options.construct || [];
-  this._whereClauses = options.where || [];
+  this._constructTriples = (options.construct &&
+                            this.flattenInput(options.construct)) || [];
+  this._whereClauses = (options.where &&
+                            this.flattenInput(options.where)) || [];
 };
 
 ConstructQuery.prototype = Object.create(Query.prototype);
