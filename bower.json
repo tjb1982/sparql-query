@@ -1,0 +1,29 @@
+{
+  "name": "sparql-query",
+  "main": "sparql-query.min.js.gz",
+  "version": "0.0.0",
+  "homepage": "https://github.com/tjb1982/sparql-query",
+  "authors": [
+    "Tom Brennan <tom@onclickstudios.com>"
+  ],
+  "description": "sparql query builder",
+  "moduleType": [
+    "amd",
+    "es6",
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "sparql",
+    "semantic",
+    "rdf"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
