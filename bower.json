@@ -8,6 +8,8 @@
   ],
   "description": "sparql query builder",
   "moduleType": [
+    "amd",
+    "es6",
     "globals",
     "node"
   ],
