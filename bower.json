@@ -1,6 +1,6 @@
 {
   "name": "sparql-query",
-  "main": "sparql-query.min.js.gz",
+  "main": "sparql-query.min.js",
   "version": "0.0.0",
   "homepage": "https://github.com/tjb1982/sparql-query",
   "authors": [
