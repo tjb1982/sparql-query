@@ -1,4 +1,3 @@
-
 # sparql-query
 
   builds a sparql query string
@@ -11,6 +10,26 @@
 
 ## API
 
+```javascript
+new sparqlquery.ConstructQuery().construct([
+  '?s', [
+    'skos:narrower ?narrower',
+    'a ?what'
+  ]
+]).where([
+  '?s', [
+    'skos:narrower ?narrower',
+    'a ?what'
+  ]
+]).where([
+  '?what a', [
+    'ex:animal',
+    'ex:revered',
+    'ex:imaginary'
+  ]
+]).out();
+// construct { ?s skos:narrower ?narrower ; a ?what } where { ?s skos:narrower ?narrower ; a ?what . ?what a ex:animal , ex:revered , ex:imaginary } 
+```
 
 
 ## License
