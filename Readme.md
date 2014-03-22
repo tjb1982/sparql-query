@@ -49,7 +49,7 @@ var triples = new sparqlquery.Query().flattenInput([
 var id = "ex:unicorn";
 
 triples.join(' . ').replace(/%s/g, id);
-// ?s ?p ?object1 , ?object2 . ?s ?p ?object1 ; ?p2 ?object2 . ?s2 ?p3 ?o3 . filter ( ?s != %s ) 
+// ?s ?p ?object1 , ?object2 . ?s ?p ?object1 ; ?p2 ?object2 . ?s2 ?p3 ?o3 . filter ( ?s != ex:unicorn ) 
 ```
 
 
