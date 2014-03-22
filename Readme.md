@@ -31,6 +31,22 @@ new sparqlquery.ConstructQuery().construct([
 // construct { ?s skos:narrower ?narrower ; a ?what } where { ?s skos:narrower ?narrower ; a ?what . ?what a ex:animal , ex:revered , ex:imaginary } 
 ```
 
+```javascript
+var triples = new sparqlquery.Query().flattenInput([
+  '?s ?p', [
+    '?object1',
+    '?object2'
+  ],
+  '?s', [
+    '?p ?object1',
+    '?p2 ?object2'
+  ],
+  '?s2 ?p3 ?o3',
+  'filter ( ?s != %s )'
+]).join(' . ');
+// ?s ?p ?object1 , ?object2 . ?s ?p ?object1 ; ?p2 ?object2 . ?s2 ?p3 ?o3 . filter ( ?s != %s ) 
+```
+
 
 ## License
 
