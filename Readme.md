@@ -43,7 +43,9 @@ var triples = new sparqlquery.Query().flattenInput([
   ],
   '?s2 ?p3 ?o3',
   'filter ( ?s != %s )'
-]).join(' . ');
+]);
+// ["?s ?p ?object1 , ?object2", "?s ?p ?object1 ; ?p2 ?object2", "?s2 ?p3 ?o3", "filter ( ?s != %s )"] 
+triples.join(' . ');
 // ?s ?p ?object1 , ?object2 . ?s ?p ?object1 ; ?p2 ?object2 . ?s2 ?p3 ?o3 . filter ( ?s != %s ) 
 ```
 
