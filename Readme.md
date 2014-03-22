@@ -1,6 +1,6 @@
 # sparql-query
 
-  builds a sparql query string
+  builds a sparql query string (only construct supported at this time)
 
 ## Installation
 
