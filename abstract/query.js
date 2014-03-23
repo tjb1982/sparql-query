@@ -16,7 +16,7 @@ Query.prototype.flattenInput = function(input) {
       case 2:
         return query.isArray(input[i + 1]) && x + ' ' + input[i + 1].join(' , ');
       case 1:
-        return query.isArray(input[i + 1]) && x + ' ' + input[i + 1].join(' ; ');
+        return query.isArray(input[i + 1]) && x + ' ' + query.flattenInput(input[i + 1]).join(' ; ');
       default:
         return x;
     }
