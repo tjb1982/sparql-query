@@ -26,6 +26,5 @@ ConstructQuery.prototype.serialize = ConstructQuery.prototype.out = function(rep
   return Query.prototype.out.call(this, replacements);
 };
 
-var id = 'core:test';
 
 module.exports = ConstructQuery;

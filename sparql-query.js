@@ -226,19 +226,18 @@ Query.prototype.flattenInput = function(input) {
         case 2:
           return isArray(next) && x + ' ' + next.join(' , ');
         case 1:
-          return (isArray(next)) && (function() {
-            next = next.map(function(nnext, idx) {
-              if (isArray(nnext)) {
+          return isArray(next) && (function() {
+            next = next.map(function(partOfNext, idx) {
+              if (isArray(partOfNext)) {
                 var
                 pred = next[idx - 1],
-                list = nnext.join(' , ');
+                list = partOfNext.join(' , ');
                 return pred + ' ' + list;
               }
-              else return nnext;
+              else if (!isArray(next[idx + 1])) return partOfNext;
             }).filter(function(x) {
-              return x;
+              return x && x.split(/\s+/g).length > 1;
             });
-
             return next.length ? x + ' ' + next.join(' ; ') : '';
           })();
         default:
@@ -316,7 +315,6 @@ ConstructQuery.prototype.serialize = ConstructQuery.prototype.out = function(rep
   return Query.prototype.out.call(this, replacements);
 };
 
-var id = 'core:test';
 
 module.exports = ConstructQuery;
 
