@@ -1,7 +1,6 @@
-
 # sparql-query
 
-  builds a sparql query string
+  builds a sparql query string (only construct supported at this time)
 
 ## Installation
 
@@ -11,6 +10,47 @@
 
 ## API
 
+```javascript
+new sparqlquery.ConstructQuery().construct([
+  '?s', [
+    'skos:narrower ?narrower',
+    'a ?what'
+  ]
+]).where([
+  '?s', [
+    'skos:narrower ?narrower',
+    'a ?what'
+  ]
+]).where([
+  '?what a', [
+    'ex:animal',
+    'ex:revered',
+    'ex:imaginary'
+  ]
+]).out();
+// construct { ?s skos:narrower ?narrower ; a ?what } where { ?s skos:narrower ?narrower ; a ?what . ?what a ex:animal , ex:revered , ex:imaginary } 
+```
+
+```javascript
+var triples = new sparqlquery.Query().flattenInput([
+  '?s ?p', [
+    '?object1',
+    '?object2'
+  ],
+  '?s', [
+    '?p ?object1',
+    '?p2 ?object2'
+  ],
+  '?s2 ?p3 ?o3',
+  'filter ( ?s != %s )'
+]);
+// ["?s ?p ?object1 , ?object2", "?s ?p ?object1 ; ?p2 ?object2", "?s2 ?p3 ?o3", "filter ( ?s != %s )"] 
+
+var id = "ex:unicorn";
+
+triples.join(' . ').replace(/%s/g, id);
+// ?s ?p ?object1 , ?object2 . ?s ?p ?object1 ; ?p2 ?object2 . ?s2 ?p3 ?o3 . filter ( ?s != ex:unicorn ) 
+```
 
 
 ## License
