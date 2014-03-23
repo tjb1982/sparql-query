@@ -213,18 +213,18 @@ Query.prototype.isArray = function(test) {
 };
 
 Query.prototype.flattenInput = function(input) {
-  var self = this;
+  var query = this;
 
   return this.isArray(input) ? input.map(function(x, i) {
-    if (self.isArray(x))
-      return self.flattenInput(x)[0];
+    if (query.isArray(x))
+      return query.flattenInput(x)[0];
     else switch (x.split(/\s+/g).length) {
       case 3:
         return x;
       case 2:
-        return self.isArray(input[i + 1]) && x + ' ' + input[i + 1].join(' , ');
+        return query.isArray(input[i + 1]) && x + ' ' + input[i + 1].join(' , ');
       case 1:
-        return self.isArray(input[i + 1]) && x + ' ' + input[i + 1].join(' ; ');
+        return query.isArray(input[i + 1]) && x + ' ' + input[i + 1].join(' ; ');
       default:
         return x;
     }
@@ -235,11 +235,11 @@ Query.prototype.flattenInput = function(input) {
 };
 
 Query.prototype.where = function(input) {
-  var self = this;
+  var query = this;
   this._whereClauses = this._whereClauses || [];
 
   this.flattenInput(input).map(function(string) {
-    self._whereClauses.push(string);
+    query._whereClauses.push(string);
   });
 
   return this;
@@ -250,7 +250,7 @@ Query.prototype.optional = function(input) {
   this._optional = this._optional || [];
 
   this.flattenInput(input).map(function(string) {
-    self._whereClauses.push('optional { ' + string + ' } ');
+    query._whereClauses.push('optional { ' + string + ' } ');
   });
 };
 
