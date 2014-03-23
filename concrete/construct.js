@@ -19,9 +19,11 @@ ConstructQuery.prototype.construct = function(input) {
   return this;
 };
 
-ConstructQuery.prototype.serialize = ConstructQuery.prototype.out = function() {
-  return 'construct { ' + this._constructTriples.join(' . ') + ' } where { ' +
+ConstructQuery.prototype.serialize = ConstructQuery.prototype.out = function(replacements) {
+  this._out = 'construct { ' + this._constructTriples.join(' . ') + ' } where { ' +
     this._whereClauses.join(' . ') + ' }';
+
+  return Query.prototype.out.call(this, replacements);
 };
 
 module.exports = ConstructQuery;

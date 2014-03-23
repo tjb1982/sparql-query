@@ -48,6 +48,12 @@ Query.prototype.optional = function(input) {
   return this;
 };
 
-Query.prototype.out = Query.prototype.serialize = function() {};
+Query.prototype.out = Query.prototype.serialize = function(replacements) {
+  var query = this;
+  return replacements.map(function(replacement, i) {
+    var re = i === replacements.length - 1 ? /%s/g : /%s/;
+    query._out.replace(re, replacement);
+  }).pop();
+};
 
 module.exports = Query;
