@@ -256,7 +256,13 @@ Query.prototype.optional = function(input) {
   return this;
 };
 
-Query.prototype.out = Query.prototype.serialize = function() {};
+Query.prototype.out = Query.prototype.serialize = function(replacements) {
+  var query = this;
+  return replacements.map(function(replacement, i) {
+    var re = i === replacements.length - 1 ? /%s/g : /%s/;
+    query._out.replace(re, replacement);
+  }).pop();
+};
 
 module.exports = Query;
 
@@ -283,9 +289,11 @@ ConstructQuery.prototype.construct = function(input) {
   return this;
 };
 
-ConstructQuery.prototype.serialize = ConstructQuery.prototype.out = function() {
-  return 'construct { ' + this._constructTriples.join(' . ') + ' } where { ' +
+ConstructQuery.prototype.serialize = ConstructQuery.prototype.out = function(replacements) {
+  this._out = 'construct { ' + this._constructTriples.join(' . ') + ' } where { ' +
     this._whereClauses.join(' . ') + ' }';
+
+  return Query.prototype.out.call(this, replacements);
 };
 
 module.exports = ConstructQuery;
