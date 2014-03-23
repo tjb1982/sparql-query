@@ -238,11 +238,20 @@ Query.prototype.where = function(input) {
   var self = this;
   this._whereClauses = this._whereClauses || [];
 
-  this.flattenInput(input).forEach(function(string) {
+  this.flattenInput(input).map(function(string) {
     self._whereClauses.push(string);
   });
 
   return this;
+};
+
+Query.prototype.optional = function(input) {
+  var query = this;
+  this._optional = this._optional || [];
+
+  this.flattenInput(input).map(function(string) {
+    self._whereClauses.push('optional { ' + string + ' } ');
+  });
 };
 
 Query.prototype.out = Query.prototype.serialize = function() {};
@@ -258,7 +267,7 @@ var ConstructQuery = function(options) {
   this._constructTriples = (options.construct &&
                             this.flattenInput(options.construct)) || [];
   this._whereClauses = (options.where &&
-                            this.flattenInput(options.where)) || [];
+                        this.flattenInput(options.where)) || [];
 };
 
 ConstructQuery.prototype = Object.create(Query.prototype);

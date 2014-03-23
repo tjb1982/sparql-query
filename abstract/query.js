@@ -30,11 +30,20 @@ Query.prototype.where = function(input) {
   var self = this;
   this._whereClauses = this._whereClauses || [];
 
-  this.flattenInput(input).forEach(function(string) {
+  this.flattenInput(input).map(function(string) {
     self._whereClauses.push(string);
   });
 
   return this;
+};
+
+Query.prototype.optional = function(input) {
+  var query = this;
+  this._optional = this._optional || [];
+
+  this.flattenInput(input).map(function(string) {
+    self._whereClauses.push('optional { ' + string + ' } ');
+  });
 };
 
 Query.prototype.out = Query.prototype.serialize = function() {};
