@@ -252,6 +252,8 @@ Query.prototype.optional = function(input) {
   this.flattenInput(input).map(function(string) {
     query._whereClauses.push('optional { ' + string + ' } ');
   });
+
+  return this;
 };
 
 Query.prototype.out = Query.prototype.serialize = function() {};
