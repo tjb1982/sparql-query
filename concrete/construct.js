@@ -11,9 +11,10 @@ var ConstructQuery = function(options) {
 ConstructQuery.prototype = Object.create(Query.prototype);
 
 ConstructQuery.prototype.construct = function(input) {
-  var self = this;
+  var query = this;
+
   this.flattenInput(input).forEach(function(string) {
-    self._constructTriples.push(string);
+    query._constructTriples.push(string);
   });
 
   return this;
@@ -21,7 +22,7 @@ ConstructQuery.prototype.construct = function(input) {
 
 ConstructQuery.prototype.serialize = ConstructQuery.prototype.out = function(replacements) {
   this._out = 'construct { ' + this._constructTriples.join(' . ') + ' } where { ' +
-    this._whereClauses.join(' . ') + ' }';
+    this._whereClauses.join(' . ') + ' } ';
 
   return Query.prototype.out.call(this, replacements);
 };
