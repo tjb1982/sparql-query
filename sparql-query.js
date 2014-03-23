@@ -258,10 +258,12 @@ Query.prototype.optional = function(input) {
 
 Query.prototype.out = Query.prototype.serialize = function(replacements) {
   var query = this;
-  return replacements.map(function(replacement, i) {
+  replacements && replacements.map(function(replacement, i) {
     var re = i === replacements.length - 1 ? /%s/g : /%s/;
-    query._out.replace(re, replacement);
-  }).pop();
+    query._out = query._out.replace(re, replacement);
+  });
+
+  return this._out;
 };
 
 module.exports = Query;
