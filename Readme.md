@@ -10,6 +10,9 @@
 
 ## API
 
+### .construct([object Array] structuredTriples)
+### .where([object Array] structuredTriples)
+
 ```javascript
 new sparqlquery.ConstructQuery().construct([
   '?s', [
@@ -30,6 +33,36 @@ new sparqlquery.ConstructQuery().construct([
 ]).out();
 // construct { ?s skos:narrower ?narrower ; a ?what } where { ?s skos:narrower ?narrower ; a ?what . ?what a ex:animal , ex:revered , ex:imaginary } 
 ```
+
+### .out([[object Array] replacements])
+### .optional([object Array] structuredTriples)
+
+```javascript
+var id = 'core:Work';
+
+new sparqlquery.ConstructQuery().construct([
+  '?prop', [
+    'skos:prefLabel ?label',
+    'rdfs:domain', [
+      '?super',
+      '%s'
+    ],
+    'rdfs:range ?range',
+    'a ?type'
+  ]
+]).where([
+  '?prop', [
+    'skos:prefLabel ?label',
+    'rdfs:domain %s',
+    'rdfs:range ?range'
+  ]
+]).optional([
+  '%s skos:broaderTransitive ?super',
+  '?prop rdfs:domain ?super'
+]).out([id]);
+// construct { ?prop skos:prefLabel ?label ; rdfs:domain ?super , core:Work ; rdfs:range ?range ; a ?type } where { ?prop skos:prefLabel ?label ; rdfs:domain core:Work ; rdfs:range ?range . optional { core:Work skos:broaderTransitive ?super . ?prop rdfs:domain ?super }  }
+```
+### Query.flattenInput([object Array] structuredTriples)
 
 ```javascript
 var triples = new sparqlquery.Query().flattenInput([
