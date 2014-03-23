@@ -1,24 +1,41 @@
 var Query = function() {};
 
-Query.prototype.isArray = function(test) {
+function isArray (test) {
   return Object.prototype.toString.call(test) === '[object Array]';
 };
 
 Query.prototype.flattenInput = function(input) {
   var query = this;
 
-  return this.isArray(input) ? input.map(function(x, i) {
-    if (query.isArray(x))
+  return isArray(input) ? input.map(function(x, i) {
+    if (isArray(x))
       return query.flattenInput(x)[0];
-    else switch (x.split(/\s+/g).length) {
-      case 3:
-        return x;
-      case 2:
-        return query.isArray(input[i + 1]) && x + ' ' + input[i + 1].join(' , ');
-      case 1:
-        return query.isArray(input[i + 1]) && x + ' ' + query.flattenInput(input[i + 1]).join(' ; ');
-      default:
-        return x;
+    else {
+      var next = input[i + 1];
+      switch (x.split(/\s+/g).length) {
+        case 3:
+          return x;
+        case 2:
+          return isArray(next) && x + ' ' + next.join(' , ');
+        case 1:
+          return (isArray(next)) && (function() {
+            next = next.map(function(nnext, idx) {
+              if (isArray(nnext)) {
+                var
+                pred = next[idx - 1],
+                list = nnext.join(' , ');
+                return pred + ' ' + list;
+              }
+              else return nnext;
+            }).filter(function(x) {
+              return x;
+            });
+
+            return next.length ? x + ' ' + next.join(' ; ') : '';
+          })();
+        default:
+          return x;
+      }
     }
   }).filter(function(x) {
     return x;
@@ -41,15 +58,16 @@ Query.prototype.optional = function(input) {
   var query = this;
   this._optional = this._optional || [];
 
-  this.flattenInput(input).map(function(string) {
-    query._whereClauses.push('optional { ' + string + ' } ');
-  });
+  query._whereClauses.push(
+    'optional { ' + this.flattenInput(input).join(' . ') + ' } '
+  );
 
   return this;
 };
 
 Query.prototype.out = Query.prototype.serialize = function(replacements) {
   var query = this;
+
   replacements && replacements.map(function(replacement, i) {
     var re = i === replacements.length - 1 ? /%s/g : /%s/;
     query._out = query._out.replace(re, replacement);
